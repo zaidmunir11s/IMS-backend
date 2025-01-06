@@ -31,7 +31,7 @@ class AuthService {
   async login(userData: { email: string; password: string }) {
     const { email, password } = userData;
 
-    const user = await User.findOne({ email }).populate("role");
+    const user:any = await User.findOne({ email }).populate("role");
     if (!user) {
       throw new Error("Invalid credentials");
     }
@@ -41,7 +41,7 @@ class AuthService {
       throw new Error("Invalid credentials");
     }
 
-    return generateToken(user._id, user.role.name);
+    return generateToken(user._id , user?.role.name );
   }
 }
 

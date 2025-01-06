@@ -9,7 +9,7 @@ class AuthController {
     this.authService = new AuthService();
   }
 
-  async register(req: Request, res: Response) {
+  async register(req: Request, res: Response): Promise<any>  {
     const { name, email, password, role } = req.body;
 
     try {
@@ -20,18 +20,18 @@ class AuthController {
         role,
       });
       res.status(201).json({ user });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }
 
-  async login(req: Request, res: Response) {
+  async login(req: Request, res: Response) : Promise<any> {
     const { email, password } = req.body;
 
     try {
       const token = await this.authService.login({ email, password });
       res.status(200).json({ token });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }

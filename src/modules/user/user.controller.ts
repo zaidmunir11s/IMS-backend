@@ -9,16 +9,16 @@ class UserController {
     this.userService = new UserService();
   }
 
-  async getAllRoles(req: Request, res: Response) {
+  async getAllRoles(req: Request, res: Response): Promise<any> {
     try {
       const roles = await this.userService.getAllRoles();
       res.status(200).json({ roles });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }
 
-  async getRoleById(req: Request, res: Response) {
+  async getRoleById(req: Request, res: Response) : Promise<any> {
     const { id } = req.params;
     try {
       const role = await this.userService.getRoleById(id);
@@ -26,22 +26,22 @@ class UserController {
         return res.status(404).json({ message: "Role not found" });
       }
       res.status(200).json({ role });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }
 
-  async createRole(req: Request, res: Response) {
+  async createRole(req: Request, res: Response): Promise<any>  {
     const { name, permissions } = req.body;
     try {
       const role = await this.userService.createRole(name, permissions);
       res.status(201).json({ role });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }
 
-  async updateRole(req: Request, res: Response) {
+  async updateRole(req: Request, res: Response) : Promise<any> {
     const { id } = req.params;
     const { name, permissions } = req.body;
     try {
@@ -50,12 +50,12 @@ class UserController {
         return res.status(404).json({ message: "Role not found" });
       }
       res.status(200).json({ role });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }
 
-  async deleteRole(req: Request, res: Response) {
+  async deleteRole(req: Request, res: Response): Promise<any>  {
     const { id } = req.params;
     try {
       const result = await this.userService.deleteRole(id);
@@ -63,7 +63,7 @@ class UserController {
         return res.status(404).json({ message: "Role not found" });
       }
       res.status(200).json({ message: "Role deleted successfully" });
-    } catch (error) {
+    } catch (error:any) {
       res.status(400).json({ message: error.message });
     }
   }
