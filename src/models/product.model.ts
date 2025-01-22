@@ -27,6 +27,9 @@ const ProductSchema: Schema = new Schema(
         required: true,
         
       },
+      qrCode: {
+        type: String, 
+      },
       category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "ProductCategory",

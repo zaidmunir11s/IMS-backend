@@ -1,5 +1,7 @@
 import ProductCategory from "../../models/productCategory.model";
 import { IProductCategory } from "../../models/productCategory.model";
+import mongoose from "mongoose";
+import Product, { IProduct } from "../../models/product.model"
 
 
 
@@ -45,7 +47,61 @@ async deleteProductCategory (id: string): Promise<boolean>{
   } catch (error:any) {
     throw new Error("Error deleting category: " + error?.message);
   }
-}}
+}
+async createProduct  (productData: IProduct): Promise<IProduct>  {
+    try {
+      const newProduct = new Product(productData);
+      await newProduct.save();
+      return newProduct;
+    } catch (error:any) {
+      throw new Error("Error creating product: " + error.message);
+    }
+  };
+  
+ async getProducts (): Promise<IProduct[]> {
+    try {
+      return await Product.find().populate("category", "name");
+    } catch (error:any) {
+      throw new Error("Error fetching products: " + error.message);
+    }
+  };
+  
+ async getProductById  (id: string): Promise<IProduct | null> {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error("Invalid product ID");
+      }
+      return await Product.findById(id).populate("category", "name");
+    } catch (error:any) {
+      throw new Error("Error fetching product: " + error.message);
+    }
+  };
+  
+  async updateProduct  (id: string, updateData: IProduct): Promise<IProduct | null>{
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error("Invalid product ID");
+      }
+      return await Product.findByIdAndUpdate(id, updateData, { new: true }).populate("category", "name");
+    } catch (error:any) {
+      throw new Error("Error updating product: " + error.message);
+    }
+  };
+  
+ async deleteProduct  (id: string): Promise<boolean> {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error("Invalid product ID");
+      }
+      const result = await Product.findByIdAndDelete(id);
+      return result !== null;
+    } catch (error:any) {
+      throw new Error("Error deleting product: " + error.message);
+    }
+  };
+}
+
+
 
 export default ProductService
 

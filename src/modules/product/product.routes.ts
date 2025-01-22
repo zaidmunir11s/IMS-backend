@@ -8,5 +8,10 @@ router.get("/categories", productController.getProductCategories);
 router.get("/category/:id", productController.getProductCategoryById);
 router.put("/category/update/:id", productController.updateProductCategory);
 router.delete("/category/:id", productController.deleteProductCategory);
+router.post("/", productController.createProduct);
+router.get("/",productController.getProducts);
+router.get("/:id",productController.getProductById);
+router.put("/:id",productController.updateProduct);
+router.delete("/:id", productController.deleteProduct);
 
 export default router;

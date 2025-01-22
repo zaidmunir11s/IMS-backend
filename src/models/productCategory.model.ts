@@ -15,6 +15,6 @@ const ProductCategorySchema: Schema = new Schema(
   { timestamps: true }
 );
 
-const ProductCategory = mongoose.model<IProductCategory>("Role", ProductCategorySchema);
+const ProductCategory = mongoose.model<IProductCategory>("ProductCategory", ProductCategorySchema);
 
 export default ProductCategory;

@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import connectDB from "./src/config/db";
 import authModule from "./src/modules/auth/auth.module";
 import userModule from "./src/modules/user/user.module";
+import productModule from "./src/modules/product/product.module";
 import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "crypto";
@@ -26,6 +27,8 @@ app.use(express.json());
 
 authModule(app);
 userModule(app);
+productModule(app)
+
 
 app.listen(PORT, (): void => {
   console.log(`Server running on http://localhost:${PORT}`);
