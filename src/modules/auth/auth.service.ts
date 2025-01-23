@@ -28,8 +28,8 @@ class AuthService {
     return user;
   }
 
-  async login(userData: { email: string; password: string }) {
-    const { email, password } = userData;
+  async login(email: string,password: string ) {
+    
 
     const user:any = await User.findOne({ email }).populate("role");
     if (!user) {

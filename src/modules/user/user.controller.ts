@@ -67,6 +67,58 @@ class UserController {
       res.status(400).json({ message: error.message });
     }
   }
+  async createUser(req: Request, res: Response) : Promise<any> {
+    try {
+      const { username, email, password, role } = req.body;
+      const newUser = await this.userService.createUser(username, email, password, role);
+      res.status(201).json(newUser);
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getUser(req: Request, res: Response) : Promise<any> {
+    try {
+      const userId = req.params.id;
+      const user = await this.userService.getUserById(userId);
+      if (!user) return res.status(404).json({ message: "User not found" });
+      res.status(200).json(user);
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getAllUsers(req: Request, res: Response): Promise<any>  {
+    try {
+      const users = await this.userService.getAllUsers();
+      res.status(200).json(users);
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async updateUser(req: Request, res: Response): Promise<any>  {
+    try {
+      const userId = req.params.id;
+      const updatedData = req.body;
+      const updatedUser = await this.userService.updateUser(userId, updatedData);
+      if (!updatedUser) return res.status(404).json({ message: "User not found" });
+      res.status(200).json(updatedUser);
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async deleteUser(req: Request, res: Response) : Promise<any> {
+    try {
+      const userId = req.params.id;
+      const deletedUser = await this.userService.deleteUser(userId);
+      if (!deletedUser) return res.status(404).json({ message: "User not found" });
+      res.status(200).json({ message: "User deleted successfully" });
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default UserController;
