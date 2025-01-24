@@ -44,6 +44,7 @@ class UserService {
   }
 
   async getAllUsers(): Promise<IUser[]> {
+    console.log("users")
     return User.find().populate("role").exec();
   }
 

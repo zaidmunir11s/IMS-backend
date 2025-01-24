@@ -3,17 +3,14 @@ import ProductService from "./product.service";
 
 
 
+const productService= new ProductService()
 
 class ProductController{
-    private productService: ProductService;
-
-    constructor() {
-      this.productService= new ProductService();
-    }
+   
 
 async createProductCategory (req: Request, res: Response):Promise<any> {
   try {
-    const newCategory = await this.productService.createProductCategory(req.body);
+    const newCategory = await productService.createProductCategory(req.body);
     res.status(201).json(newCategory);
   } catch (error:any) {
     res.status(500).json({ message: error.message });
@@ -22,7 +19,7 @@ async createProductCategory (req: Request, res: Response):Promise<any> {
 
 async getProductCategories(req: Request, res: Response):Promise<any> {
   try {
-    const categories = await this.productService.getProductCategories();
+    const categories = await productService.getProductCategories();
     res.status(200).json(categories);
   } catch (error:any) {
     res.status(500).json({ message: error.message });
@@ -31,7 +28,7 @@ async getProductCategories(req: Request, res: Response):Promise<any> {
 
 async getProductCategoryById(req: Request, res: Response):Promise<any> {
   try {
-    const category = await this.productService.getProductCategoryById(req.params.id);
+    const category = await productService.getProductCategoryById(req.params.id);
     if (!category) return res.status(404).json({ message: "Category not found" });
     res.status(200).json(category);
   } catch (error:any) {
@@ -41,7 +38,7 @@ async getProductCategoryById(req: Request, res: Response):Promise<any> {
 
 async updateProductCategory  (req: Request, res: Response):Promise<any>{
   try {
-    const updatedCategory = await this.productService.updateProductCategory(req.params.id, req.body);
+    const updatedCategory = await productService.updateProductCategory(req.params.id, req.body);
     if (!updatedCategory) return res.status(404).json({ message: "Category not found" });
     res.status(200).json(updatedCategory);
   } catch (error:any) {
@@ -51,7 +48,7 @@ async updateProductCategory  (req: Request, res: Response):Promise<any>{
 
 async deleteProductCategory  (req: Request, res: Response):Promise<any>{
   try {
-    const isDeleted = await this.productService.deleteProductCategory(req.params.id);
+    const isDeleted = await productService.deleteProductCategory(req.params.id);
     if (!isDeleted) return res.status(404).json({ message: "Category not found" });
     res.status(200).json({ message: "Category deleted successfully" });
   } catch (error:any) {
@@ -60,7 +57,7 @@ async deleteProductCategory  (req: Request, res: Response):Promise<any>{
 };
 async createProduct  (req: Request, res: Response) :Promise<any>{
     try {
-      const newProduct = await this.productService.createProduct(req.body);
+      const newProduct = await productService.createProduct(req.body);
       res.status(201).json(newProduct);
     } catch (error:any) {
       res.status(500).json({ message: error.message });
@@ -69,7 +66,7 @@ async createProduct  (req: Request, res: Response) :Promise<any>{
   
   async getProducts (req: Request, res: Response):Promise<any>{
     try {
-      const products = await this.productService.getProducts();
+      const products = await productService.getProducts();
       res.status(200).json(products);
     } catch (error:any) {
       res.status(500).json({ message: error.message });
@@ -78,7 +75,7 @@ async createProduct  (req: Request, res: Response) :Promise<any>{
   
   async getProductById  (req: Request, res: Response) :Promise<any>{
     try {
-      const product = await this.productService.getProductById(req.params.id);
+      const product = await productService.getProductById(req.params.id);
       if (!product) return res.status(404).json({ message: "Product not found" });
       res.status(200).json(product);
     } catch (error:any) {
@@ -88,7 +85,7 @@ async createProduct  (req: Request, res: Response) :Promise<any>{
   
   async updateProduct (req: Request, res: Response) :Promise<any>{
     try {
-      const updatedProduct = await this.productService.updateProduct(req.params.id, req.body);
+      const updatedProduct = await productService.updateProduct(req.params.id, req.body);
       if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
       res.status(200).json(updatedProduct);
     } catch (error:any) {
@@ -98,7 +95,7 @@ async createProduct  (req: Request, res: Response) :Promise<any>{
   
   async deleteProduct (req: Request, res: Response) :Promise<any> {
     try {
-      const isDeleted = await this.productService.deleteProduct(req.params.id);
+      const isDeleted = await productService.deleteProduct(req.params.id);
       if (!isDeleted) return res.status(404).json({ message: "Product not found" });
       res.status(200).json({ message: "Product deleted successfully" });
     } catch (error:any) {
